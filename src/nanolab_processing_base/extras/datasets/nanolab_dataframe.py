@@ -128,6 +128,8 @@ def parse_metadata(key, value, how_to_process):
         return value
     if how_to_process == "datetime":
         return unix_time_to_datetime(value)
+    if how_to_process == "float_no_unit":
+        return float(value)
 
     raise ValueError(f"Unhandled metadata key: {key}")
 
