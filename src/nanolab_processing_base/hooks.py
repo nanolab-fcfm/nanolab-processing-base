@@ -2,8 +2,6 @@ from kedro.framework.hooks import hook_impl
 from kedro.io import DataCatalog
 from kedro_datasets.pandas import CSVDataset
 from kedro_datasets.partitions import PartitionedDataset
-from pyspark import SparkConf
-from pyspark.sql import SparkSession
 from nanolab_processing_base.hooks_utils import separate_nanolab_dataset
 
 import logging

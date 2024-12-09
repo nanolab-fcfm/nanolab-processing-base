@@ -1,13 +1,44 @@
+import os
 import re
 import warnings
 import logging
+from typing import Dict, List, Tuple, Type
 import pandas as pd
-from typing import Dict, List, Tuple
 from kedro.framework.session import KedroSession
-from typing import Type
 
+# Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
+
+
+def get_data_key(path):
+    """
+    Extracts a key from a file path, consisting of the folder name and the file name (without extension).
+
+    Args:
+        path (str): The full file path to process.
+
+    Returns:
+        str: A string combining the folder name and the file name (without extension),
+             separated by the operating system's path separator.
+
+    Example:
+        Input:
+            '/home/user/documents/nanolab_processing_base/data/01_raw/project_name/2024-11-29/ITt2024-11-29_1.csv'
+        Output:
+            '2024-11-29/ITt2024-11-29_1'
+    """
+    # Split the path into components based on the operating system's path separator
+    splitted_path = path.split(os.sep)
+
+    # Extract the file name (without the extension)
+    file_name = splitted_path[-1].split(".")[0]
+
+    # Extract the folder name (immediate parent of the file)
+    folder = splitted_path[-2]
+
+    # Join the folder and file name using the OS path separator
+    return os.path.join(folder, file_name)
 
 
 def load_catalog_item(dataset_name: str) -> Dict:
@@ -169,7 +200,7 @@ def make_props_data(path: str) -> Tuple[pd.Series, pd.DataFrame]:
         else:
             raise KeyError(f"Key '{key}' is missing in the parsed properties from the file.")
 
-    props_dict["file_path"] = path
+    props_dict["data_key"] = get_data_key(path)
     props_dict["Procedure type"] = procedure
     props_series = pd.Series(props_dict)
 
@@ -181,10 +212,4 @@ def make_props_data(path: str) -> Tuple[pd.Series, pd.DataFrame]:
 
     return props_series, data
 
-
-def props_to_sql(properties: pd.DataFrame) -> Type:
-    # create database
-    db = sql_database()
-    for procedure_type in properties["Procedure type"]:
-        append_to_db(properties[properties["Procedure type"]==procedure_type].dropna(axis=1))
 
