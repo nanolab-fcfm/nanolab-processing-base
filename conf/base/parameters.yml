@@ -73,11 +73,11 @@ procedures:
     Metadata:
       Start time: datetime
     Data:
-      Vg (V): float_no_unit
-      I (A): float_no_unit
-      Plate T (degC): float_no_unit
-      Ambient T (degC): float_no_unit
-      Clock (ms): float_no_unit
+      Vg (V): float
+      I (A): float
+      Plate T (degC): float
+      Ambient T (degC): float
+      Clock (ms): float
 
   It:
     Parameters:
