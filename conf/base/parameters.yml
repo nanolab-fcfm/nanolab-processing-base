@@ -49,6 +49,36 @@ procedures:
     Data:
       Vg (V): float
       I (A): float
+  IVgT:
+    Parameters:
+      Irange: float
+      NPLC: int
+      N_avg: int
+      Burn-in time: float
+      Chained execution: bool
+      Chip group name: str
+      Chip number: str
+      Information: str
+      Laser toggle: bool
+      Laser voltage: float
+      Laser wavelength: float_no_unit
+      Procedure version: str
+      Sample: str
+      Show more: bool
+      Step time: float
+      VDS: float
+      VG end: float
+      VG start: float
+      VG step: float
+    Metadata:
+      Start time: datetime
+    Data:
+      Vg (V): float_no_unit
+      I (A): float_no_unit
+      Plate T (degC): float_no_unit
+      Ambient T (degC): float_no_unit
+      Clock (ms): float_no_unit
+
   It:
     Parameters:
       Irange: float
