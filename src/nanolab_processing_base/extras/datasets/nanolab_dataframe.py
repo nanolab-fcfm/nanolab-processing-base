@@ -194,11 +194,11 @@ def make_props_data(path: str) -> Tuple[pd.Series, pd.DataFrame]:
     procedure_dict = procedures[procedure]["Parameters"] | procedures[procedure]["Metadata"]
     props_dict = {}
 
-    for key in keys:
-        if key in dictionary_found_properties:
+    for key in dictionary_found_properties:
+        if key in keys:
             props_dict[key] = parse_metadata(key, dictionary_found_properties[key], procedure_dict[key])
         else:
-            raise KeyError(f"Key '{key}' is missing in the parsed properties from the file.")
+            raise KeyError(f"Key '{key}' is missing in the configuration file of {procedure}.")
 
     props_dict["data_key"] = get_data_key(path)
     props_dict["Procedure type"] = procedure
